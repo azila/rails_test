@@ -1,0 +1,14 @@
+
+%h1 Listing of rooms
+
+%table.table.table-hover
+  %tr
+    %th Name of the room
+    %th Number of toys 
+    %th
+  
+  - @rooms.each do |room|
+    %tr
+      %td= room.name
+      %td= room.number_of_toys
+      %td= link_to 'Show', room

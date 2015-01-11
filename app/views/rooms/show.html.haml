@@ -1,0 +1,39 @@
+%p
+  %b Name of the room:
+  = @room.name
+
+%ul
+  - @room.toys.each do |toy|
+    - unless toy.name.nil?
+      %li= toy.name
+
+%p
+  %h3 New toy
+
+- if @toy.errors.any?
+  #error_explanation
+    %h2= "#{pluralize(@toy.errors.count, "error")} prohibited this toy from being saved:"
+    %ul
+      - @toy.errors.full_messages.each do |msg|
+        %li= msg
+
+= form_for [@room, @toy] do |f|
+
+  .form-group
+    = f.label :name
+    = f.text_field :name, class: 'form-control'
+  .form-group
+    = f.label :color
+    = f.text_field :color, class: 'form-control'
+  .form-group
+    = f.label :price
+    = f.text_field :price, class: 'form-control'
+  .form-group
+    = f.label :available_num
+    = f.text_field :available_num, class: 'form-control'
+
+  = f.submit 'Save', class: 'btn btn-info'
+
+= link_to rooms_path, class: 'btn btn-link' do
+  %span.glyphicon.glyphicon-backward
+  Back
