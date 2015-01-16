@@ -13,6 +13,8 @@ class Toy < ActiveRecord::Base
 
   default_scope { where("active IS true") }
 
+  mount_uploader :toy_image, ToyImageUploader
+
   def destroy
     update_attribute(:active, false)
   end

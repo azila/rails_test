@@ -1,0 +1,42 @@
+<%= form_for [@room, @toy] do |f| %>
+  <% if @toy.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@toy.errors.count, "error") %> prohibited this toy from being saved:</h2>
+
+      <ul>
+      <% @toy.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <p>
+    <b><%= f.label(:name) %></b>
+    <%= f.text_field(:name) %>
+  </p>
+  <p>
+    <b><%= f.label(:color) %></b>
+    <%= f.text_field(:color) %>
+  </p>
+  <p>
+    <b><%= f.label(:price) %></b>
+    <%= f.text_field(:price) %>
+  </p>
+  <p>
+    <b><%= f.label(:available_num) %></b>
+    <%= f.text_field(:available_num) %>
+  </p>
+  <p>
+    <b><%= f.label :room %></b>
+    <%= f.select(:room_id, options_for_select(Room.all.map { |room| [room.name, room.id] })) %>
+  </p>
+   <p>
+    <b><%= f.label :toy_image %></b>
+    <%= f.file_field :toy_image %>
+  </p>
+
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+<% end %>

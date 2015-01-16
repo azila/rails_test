@@ -46,3 +46,17 @@ gem 'bootstrap-sass', '~> 3.1.0'
 
 gem 'haml'
 
+gem 'actionpack-action_caching'
+
+gem 'carrierwave'
+
+gem 'hello_toys'
+
+group :test do
+  gem 'cucumber-rails', :require => false
+  gem 'database_cleaner'
+  gem 'capybara'
+  gem 'rspec-rails'
+  gem 'fabrication'
+end
+

@@ -1,0 +1,19 @@
+.container-fluid
+  -if @room.errors.any?
+    %h2 "#{pluralize(@room.errors.count, "error")} prevented ..."
+    %ul
+    - @room.errors.full_messages.each do |msg|
+      %li= msg
+  = form_for @room do |f|
+    .form-group
+      = f.label 'Name'
+      = f.text_field :name, class: 'form-control'
+    .form-group
+      = f.label 'Number'
+      = f.text_field :number, class: 'form-control'
+    .form-group
+      = f.label 'Number of toys'
+      = f.text_field :number_of_toys, class: 'form-control'
+    .form-group
+      = f.submit 'Save', class: 'btn btn-info'
+

@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Name of the toy:</b>
+  <%= @toy.name %>
+</p>
+<p>
+  <b>Color:</b>
+  <%= @toy.color %>
+</p>
+<p>
+  <b>Available number:</b>
+  <%= @toy.available_num %>
+</p>
+<p>
+  <b>Price:</b>
+  <%= @toy.price %>
+</p>
+<p>
+  <b>Image:</b>
+  <%= image_tag(@toy.toy_image_url) if @toy.toy_image.present?  %>
+</p>
+
+<%= link_to 'Edit', edit_room_toy_path(@toy.room, @toy) %> |
+<%= link_to 'Back', room_toys_path(@toy.room, @toy) %>
