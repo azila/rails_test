@@ -17,47 +17,34 @@ class ToysController < ApplicationController
 
   def create
     @toy = Toy.new(toy_params)
-
-    respond_to do |format|
-      if @toy.save
-        
-        expire_action action: :show
-        @room = Room.find(params[:room_id])
-        @room.toys << @toy
-
-        format.html { redirect_to room_path(@room), notice: 'Toy was successfully created.' }
-        format.json { render :show, status: :created, location: @toy }
-      else
-        format.html { render :new }
-        format.json { render json: @toy.errors, status: :unprocessable_entity }
-      end
+    if @toy.save       
+      expire_action action: :show
+      @room = Room.find(params[:room_id])
+      @room.toys << @toy
+      redirect_to room_path(@room), notice: 'Toy was successfully created.' 
+    else
+      render :new 
     end
   end
 
   def edit
-    @room = Room.find(params[:room_id])
+    @room = set_toy.room
   end
 
   def update
-    respond_to do |format|
-      if @toy.update(toy_params)
-        expire_action action: :show
-
-        format.html { redirect_to rooms_path, notice: 'Toy was successfully updated.' }
-        format.json { render :show, status: :ok, location: @toy }
-      else
-        format.html { render :edit }
-        format.json { render json: @toy.errors, status: :unprocessable_entity }
-      end
+    @room = set_toy.room
+    if set_toy.update(toy_params)
+      expire_action action: :show
+      @room = Room.find(params[:room_id])
+      redirect_to room_toy_path(@room, @toy), notice: 'Toy was successfully updated.'
+    else
+      render :edit
     end
   end
 
   def destroy
     @toy.destroy
-    respond_to do |format|
-      format.html { redirect_to toys_url, notice: 'Toy was successfully destroyed.' }
-      format.json { head :no_content }
-    end
+    redirect_to room_path(@toy.room), notice: 'Toy was successfully destroyed.' 
   end
 
   private
